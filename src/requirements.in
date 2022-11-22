@@ -1,0 +1,6 @@
+flask
+flask-wtf
+wtforms
+azure-storage-queue
+azqueuetweeter
+python-dotenv

@@ -1,0 +1,12 @@
+<h2 class="section-head">Your Messages: </h2>
+<div class="message_queue">
+  {% include 'message_queue.html' %}
+</div>
+<div class="message_form">
+  <h2 class="section-head">Create New Message</h2>
+  {% for category, message in get_flashed_messages(with_categories=true) %}
+  <span class="flash {{ category }}">{{ message }}</span>
+  {% endfor %}
+</div>
+
+{%  include 'create_form.html' %}

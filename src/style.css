@@ -1,0 +1,133 @@
+html {font-family: 'Open Sans', sans-serif;}
+.container {width: 100%; max-width: 800px; margin: auto;}
+.section-head{
+    font-weight: bolder;
+    border-bottom: 1px solid #ccc;
+    clear: both;
+}
+.message {
+    /* background-color: #f1f1f1; */
+    padding: 10px;
+    margin: 10px 0;
+    border-left: 5px solid #66baff;
+}
+textarea {
+    font-size: larger;
+    padding: 1rem;
+    margin: 2rem 0;
+}
+.message:hover {
+    background-color: #ffffff;
+}
+.message_queue, .message_form>form {
+    background-size: auto;
+    background-repeat: no-repeat;
+    padding: 1rem;
+}
+
+
+.blue-action {
+    float: right;
+    background-color: #66baff;
+    color: #fff;
+    border: #66baff 1px solid;
+    padding: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: large;
+}
+
+.blue-action:hover {
+    background-color: #45a7f7;
+    color: #fff;
+    border: #66baff 1px solid;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.message_form>.section-head {
+    margin: 2rem 0;
+}
+
+.success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.error {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+    border-radius: 5px;
+}
+
+button.error {
+    border: 1px solid #E03D3D;
+    padding: 0.25rem;
+    stroke: #721c24;
+}
+
+
+button.error:hover {
+    background-color: #E03D3D;
+    color: #fff;
+    stroke: #fff;
+    cursor: pointer;
+}
+
+.danger h2 {
+    color: #721c24;
+    padding-bottom: 0;
+    border-bottom: 1px solid #721c24;
+}
+
+.flash {
+    padding: 0.5rem;
+    margin: 0.5rem;
+    border-radius: 5px;
+}
+a:visited {
+    color: #000000;
+}
+
+a:hover {
+    font-style: italic;
+}
+#message_text{
+    color: #333;
+    font-size: 2rem;
+    width: 500px;
+    font-style: italic;
+    padding-bottom: 2rem;
+}
+
+#reload {
+    float: right;
+    text-align: end;
+    background-color: transparent;
+    border: none;
+    color: #bbb
+}
+
+.h-6 {
+    height: 2rem;
+    stroke-width: 2;
+    stroke: #eee;
+    font-weight: bold;
+}
+
+.h-6:hover {
+    stroke: #333;
+    color: #333;
+    text-shadow: 1px 1px 2px #666;
+}
+
+
+.h-4 {
+    height: 1rem;
+    stroke-width: 2;
+    font-weight: bold;
+}
+

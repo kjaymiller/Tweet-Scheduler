@@ -1,0 +1,11 @@
+<form method="POST" action="/message">
+    {{ form.csrf_token }}
+    <p>
+    {{ form.msg }}
+    </p>
+    <p>
+    {{ form.date.label }}: {{ form.date }}
+    </p>
+
+    <button class="blue-action" hx-action="click"  value="Add Message" hx-post="{{url_for('add_message')}}" hx-target="#messages">Add Message</button>
+</form>
