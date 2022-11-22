@@ -9,10 +9,11 @@ import json
 
 from uuid import uuid4
 
-from . import messages
-from .queue import queue as q
-from .form import AddMessage
+from message_manager import messages
+from message_manager.queue import queue as q
+from message_manager.form  import AddMessage
 import time
+
 
 try:
     q.queue.create_queue()

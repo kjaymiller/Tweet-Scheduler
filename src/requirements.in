@@ -4,3 +4,4 @@ wtforms
 azure-storage-queue
 azqueuetweeter
 python-dotenv
+gunicorn

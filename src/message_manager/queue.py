@@ -1,8 +1,9 @@
 import os
-import dotenv
+from dotenv import load_dotenv
 from azqueuetweeter import storage, twitter, QueueTweeter
 
-dotenv.load_dotenv('../.azure/31daysofND/.env')
+
+load_dotenv('.env')
 
 sa = storage.Auth(
         connection_string=os.environ.get("AZURE_STORAGE_CONNECTION_STRING"),
