@@ -43,9 +43,9 @@ Setting the variables below will make entering commands a little faster and more
    3. `ENVIRONMENT="<my-environment>"`
    4. `API_NAME="<my-api-name>"`
    5. `UNQIUE="<my-unique-characters>"` # try to be unique to avoid conflicts
-   `ACR_NAME="acaprojectname"+$UNIQUE` # must be all lowercase
-   6. `REGISTRY_SERVER=$ACR_NAME".azurecr.io"`
-   7. `IMAGE_URI=$ACR/$API_NAME`
+   6. `ACR_NAME="acaprojectname"+$UNIQUE` # must be all lowercase
+   7. `REGISTRY_SERVER=$ACR_NAME".azurecr.io"`
+   8. `IMAGE_URI=$REGISTRY_SERVER"/"$API_NAME`
 ### Step 2: Create A Resource Group
 ```bash
 az group create \

@@ -3,7 +3,7 @@ targetScope = 'subscription'
 @minLength(1)
 @maxLength(64)
 @description('Name to prefix all resources')
-param name string = 'azdsimpleflask'
+param name string = 'aca-tweet-scheduler'
 
 @minLength(1)
 @description('Primary location for all resources')

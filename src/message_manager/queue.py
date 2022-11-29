@@ -1,20 +1,17 @@
 import os
-from dotenv import load_dotenv
 from azqueuetweeter import storage, twitter, QueueTweeter
 
 
-load_dotenv('.env')
-
 sa = storage.Auth(
-        connection_string=os.environ.get("AZURE_STORAGE_CONNECTION_STRING"),
-        queue_name=os.environ.get("AZURE_STORAGE_QUEUE_NAME")
+        connection_string=os.environ.get("azurestorageconnectionstring"),
+        queue_name=os.environ.get("azurestoragequeuename")
 )
 
 ta = twitter.Auth(
-        consumer_key=os.environ.get("TWITTER_CONSUMER_KEY"),
-        consumer_secret=os.environ.get("TWITTER_CONSUMER_SECRET"),
-        access_token=os.environ.get("TWITTER_ACCESS_TOKEN"),
-        access_token_secret=os.environ.get("TWITTER_ACCESS_TOKEN_SECRET"),
+        consumer_key=os.environ.get("twitterconsumerkey"),
+        consumer_secret=os.environ.get("twitterconsumersecret"),
+        access_token=os.environ.get("twitteraccesstoken"),
+        access_token_secret=os.environ.get("twitteraccesstokensecret"),
 )
 
 queue = QueueTweeter(storage_auth=sa, twitter_auth=ta)
