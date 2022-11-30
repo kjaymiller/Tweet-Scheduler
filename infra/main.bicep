@@ -10,7 +10,7 @@ param name string = 'aca-tweet-scheduler'
 param location string = 'westus'
 
 resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
-  name: '${name}-resource-group'
+  name: '${name}'
   location: location
 }
 
