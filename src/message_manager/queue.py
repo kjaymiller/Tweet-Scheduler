@@ -2,6 +2,8 @@ import os
 from azqueuetweeter import storage, twitter, QueueTweeter
 
 
+# In An Update of AZQT we're going to be separating the QueueTweeter class
+
 sa = storage.Auth(
         connection_string=os.environ.get("azurestorageconnectionstring"),
         queue_name=os.environ.get("azurestoragequeuename")

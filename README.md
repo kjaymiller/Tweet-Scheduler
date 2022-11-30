@@ -28,9 +28,9 @@ follow the guidance in the comments `foo # follow these notes`
 
 ```bash
 docker build -t <yourname:yourtag> .
-docker run -p <EXTERNALPORT:INTERNALPORT YOURNAME:YOURTAG> 
+docker run -p 8000:8000 <YOURNAME:YOURTAG> 
 ```
-> NOTE: # Ports are your port number 5000:5000 by default.
+> NOTE: # Ports are your port number.
 
 This ensures that your app itself is working and issues will not be caused by syntax or other issues.
 
@@ -38,14 +38,17 @@ This ensures that your app itself is working and issues will not be caused by sy
 
 Setting the variables below will make entering commands a little faster and more consistent.
 
-   1. `RESOURCE_GROUP="<my-resource-group>"`
-   2. `LOCATION="<westus>"` # Change to your preferred [location](https://azure.microsoft.com/en-us/explore/global-infrastructure/products-by-region/?products=container-apps)
-   3. `ENVIRONMENT="<my-environment>"`
-   4. `API_NAME="<my-api-name>"`
-   5. `UNQIUE="<my-unique-characters>"` # try to be unique to avoid conflicts
-   6. `ACR_NAME="acaprojectname"+$UNIQUE` # must be all lowercase
-   7. `REGISTRY_SERVER=$ACR_NAME".azurecr.io"`
-   8. `IMAGE_URI=$REGISTRY_SERVER"/"$API_NAME`
+```bash
+   RESOURCE_GROUP="<my-resource-group>"
+   LOCATION="<westus>" # Change to your preferred [location](https://azure.microsoft.com/en-us/explore/global-infrastructure/products-by-region/?products=container-apps)
+   ENVIRONMENT="acrenv"
+   API_NAME="<my-api-name>"
+   UNQIUE="<my-unique-characters>" # try to be unique to avoid conflicts
+   ACR_NAME="<acaprojectname>"+$UNIQUE # must be all lowercase
+   REGISTRY_SERVER=$ACR_NAME".azurecr.io"
+   IMAGE_URI=$REGISTRY_SERVER"/"$API_NAME
+```
+
 ### Step 2: Create A Resource Group
 ```bash
 az group create \
@@ -61,26 +64,38 @@ az acr create \
    --name $ACR_NAME \
    --sku Basic \
    --admin-enabled true
+
+REGISTRY_USERNAME=$ACR_NAME
+REGISTRY_PASSWORD=$(az acr credential show \
+   --name $ACR_NAME \
+   --query passwords[0].value \
+   --output tsv)
+
 ```
 ### Step 4: Build Your Container
-`docker build -t $REGISTRY_SERVER . --platform linux/amd64`
+```base
+az acr build -t $IMAGE_URI . -r $ACR_NAME --platform linux/amd64` 
 
-### Step 5: Login into the Azure Container Registry
-`az acr login --name $REGISTRY_SERVER`
+### Step 5: Create an ACA Environment
+```bash
+   --resource-group $RESOURCE_GROUP \
+   --name $ENVIRONMENT \
+   --location $LOCATION
+```
 
-### Step 6: Push your container to the Azure Container Registry
-`docker push $IMAGE_URL`
-### Step 7: Create an ACA Environment
-`az containerapp env create --resource-group $RESOURCE_GROUP --name $ENVIRONMENT --location $LOCATION`
 
 ### Step 6: Deploy Your Container to the Container App
 ```bash
+   --registry-password $(az acr credential show --name $ACR_NAME --query passwords[0].value --output tsv)
 az containerapp create \
---resource-group $RESOURCE_GROUP \
---name $API_NAME \
---environment $ENVIRONMENT \
---image $IMAGE_URI \
---target-port <INTERNALPORT> \
---ingress 'external' \
---registry-server $REGISTRY_SERVER \
+   --resource-group $RESOURCE_GROUP \
+   --name $API_NAME \
+   --environment $ENVIRONMENT \
+   --image $IMAGE_URI \
+   --target-port '8000' \
+   --ingress 'external' \
+   --registry-server $REGISTRY_SERVER \
+   --registry-username $REGISTRY_USERNAME \
+   --registry-password $REGISTRY_PASSWORD
+
 ```
