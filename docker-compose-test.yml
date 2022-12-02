@@ -1,0 +1,17 @@
+services:
+  web:
+    image: jmtweetschedule8675.azurecr.io/jmtweetscheduler
+    platform: linux/amd64
+    build: src
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+
+  test:
+    image: locustio/locust
+    volumes:
+      - ./:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --worker --master-host master
+    depends_on:
+      - web
