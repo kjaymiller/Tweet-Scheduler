@@ -65,81 +65,8 @@ resource containerEnv 'Microsoft.App/managedEnvironments@2022-06-01-preview' = {
   }
 }
 
+output containerAppName string = containerAppName
+output containerRegistryId string = containerRegistry.id
+output containerRegistryName string = containerRegistry.name
+output containerEnvId string = containerEnv.id
 
-resource containerApp 'Microsoft.App/containerapps@2022-03-01' = {
-  name: containerAppName
-  location: location
-  identity: {
-    type: 'UserAssigned'
-      userAssignedIdentities: {
-        '${managedIdentity.id}': {}
-      }
-  }
-  properties: {
-    managedEnvironmentId: containerEnv.id
-    configuration: {
-      registries: [
-        {
-          identity: 'string'
-          passwordSecretRef: 'string'
-          server: 'string'
-          username: 'string'
-        }
-      ]
-      activeRevisionsMode: 'Single'
-      ingress: {
-        external: true
-        targetPort: 8000
-        transport: 'Auto'
-        allowInsecure: false
-      }
-      secrets: [
-            {
-              name: 'twitter-consumer-key'
-              value: 'twitterConsumerKey'
-            }
-            {
-              name: 'twitter-consumer-secret'
-              value: 'twitterConsumerSecret'
-            }
-            {
-              name: 'twitter-access-token'
-              value: 'twitterAccessToken'
-            }
-            {
-              name: 'twitter-access-token-secret'
-              value: 'twitterAccessTokenSecret'
-            }
-      ]
-    }
-    template: {
-      containers: [
-        {
-          image: 'jmtweetschedule8675.azurecr.io/jmtweetscheduler'
-          name: containerAppName
-          scale: {
-            maxReplicas: 10
-          }
-          env: [
-            {
-              name: 'twitterconsumerkey'
-              secretRef: 'twitter-consumer-key'
-            }
-            {
-              name: 'twitterconsumersecret'
-              secretRef: 'twitter-consumer-secret'
-            }
-            {
-              name: 'twitteraccesstoken'
-              secretRef: 'twitter-access-token'
-            }
-            {
-              name: 'twitteraccesstokensecret'
-              secretRef: 'twitter-access-token-secret'
-            }
-          ]
-        }
-      ]
-    }
-  }
-}
